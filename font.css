@@ -1,0 +1,110 @@
+/* Quy tắc @font-face cho các file trong ../font/
+	 - Danh sách hiện có:
+			 SVN-Gilroy Medium.woff2
+			 SVN-Gilroy Medium Italic.woff2
+			 SVN-Gilroy SemiBold.woff2
+			 SVN-Gilroy SemiBold Italic.woff2
+			 SVN-Gilroy Bold.woff2
+			 SVN-Gilroy Bold Italic.woff2
+			 SVN-Gilroy XBold.woff2
+			 SVN-Gilroy XBold Italic.woff2
+	 - Font-family sử dụng: 'SVN Gilroy'
+	 - Mapping trọng lượng: Medium=500, SemiBold=600, Bold=700, XBold=800
+	 - Giữ font-display: swap để tải nhanh hơn
+*/
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: normal;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy Medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: italic;
+	font-weight: 500;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy Medium Italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy SemiBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: italic;
+	font-weight: 600;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy SemiBold Italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy Bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy Bold Italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: normal;
+	font-weight: 800;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy XBold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'SVN-Gilroy';
+	font-style: italic;
+	font-weight: 800;
+	font-display: swap;
+	src: url('../font/SVN-Gilroy XBold Italic.woff2') format('woff2');
+}
+/* Kết thúc nhóm @font-face */
+
+/* Cấu hình font cơ bản và làm mượt cho toàn site */
+:root {
+  --site-font: 'SVN-Gilroy', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+html, body {
+  font-family: var(--site-font);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+  padding: 0;
+}
+
+/* Đảm bảo toàn bộ UI (form, button, table, ...) đều dùng chung font của site.
+	Một số trình duyệt mặc định dùng system font cho control — ép kế thừa
+	để trang admin và mọi thành phần nhúng đều thống nhất dùng SVN-Gilroy. */
+html, body,
+input, textarea, select, button,
+a, label, table, th, td,
+h1,h2,h3,h4,h5,h6, p, li {
+  font-family: var(--site-font) !important;
+}
+
+/* Áp dụng cùng thiết lập làm mượt cho các control form */
+input, textarea, select, button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  appearance: none;
+}
+
+

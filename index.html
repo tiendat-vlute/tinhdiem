@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công Cụ Tính GPA</title>
+    <link rel="stylesheet" href="font.css">
+    <link rel="shortcut icon" href="./img/DSC_01212.jpg" type="image/x-icon">
+    <style>
+        :root {
+            --primary-color: #0b0084;
+            --secondary-color: #f8f9fa;
+            --text-color: #333;
+            --danger-color: #ff4757;
+            --success-color: #2ed573;
+            --border-radius: 12px;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #eef2f5;
+            color: var(--text-color);
+            margin: 0;
+            padding: 40px 20px; /* Tăng padding trên dưới */
+            display: flex;
+            justify-content: center;
+            
+            /* QUAN TRỌNG: Giúp trang web cuộn được khi nội dung dài */
+            min-height: 100vh; 
+            align-items: flex-start; 
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 900px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            
+            /* QUAN TRỌNG: Tự động giãn chiều cao theo nội dung */
+            height: auto; 
+            margin-bottom: 50px; /* Khoảng trống dưới cùng khi cuộn hết trang */
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        /* --- FORM INPUT SECTION --- */
+        .input-wrapper {
+            background-color: var(--secondary-color);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border: 1px solid #e1e1e1;
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 15px;
+            align-items: flex-end;
+        }
+
+        .form-control {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-control label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .form-control input, 
+        .form-control select {
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: border-color 0.3s;
+            background: white;
+            width: 100%;
+        }
+
+        .form-control input:focus, 
+        .form-control select:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(11, 0, 132, 0.1);
+        }
+
+        /* Nút Thêm */
+        .btn-add-container {
+            flex: 0 0 auto;
+        }
+
+        button.btn-add {
+            padding: 12px 25px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            height: 46px;
+            transition: all 0.2s ease;
+            white-space: nowrap;
+        }
+        button.btn-add:hover {
+            background-color: #e50000;
+        }
+        button.btn-add:active {
+            transform: scale(1.1);
+            background: #e50000;
+            color: white;
+        }
+
+        /* --- TABLE SECTION --- */
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: var(--border-radius);
+            border: 1px solid #eee;
+            margin-bottom: 20px; /* Khoảng cách với phần kết quả */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 500px;
+        }
+
+        th {
+            background-color: #f1f2f6;
+            color: #2f3542;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            padding: 15px;
+            text-align: left;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Nút Xóa */
+        .btn-delete {
+            background-color: #fff0f1;
+            color: var(--danger-color);
+            border: 1px solid #ffced1;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        /* --- RESULT SECTION --- */
+        .result-box {
+            margin-top: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: var(--border-radius);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #dee2e6;
+        }
+
+        .result-item {
+            font-size: 1.1rem;
+        }
+
+        .gpa-wrapper {
+            text-align: right;
+        }
+
+        .gpa-label {
+            display: block;
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .gpa-score {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            line-height: 1;
+        }
+
+        /* --- MOBILE RESPONSIVE --- */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px 10px; /* Giảm padding body trên mobile */
+            }
+            
+            .container {
+                padding: 20px;
+                border-radius: 12px;
+            }
+
+            .input-group {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 15px;
+            }
+
+            button.btn-add {
+                width: 100%;
+                margin-top: 5px;
+            }
+
+            .result-box {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .gpa-wrapper {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 style="font-weight: 700;">Tính Điểm GPA</h1>
+
+    <div class="input-wrapper">
+        <div class="input-group">
+            <div class="form-control" style="flex: 2;">
+                <label for="subjectName">Tên môn học</label>
+                <input type="text" id="subjectName" placeholder="Nhập tên môn...">
+            </div>
+            
+            <div class="form-control">
+                <label for="credit">Số tín chỉ</label>
+                <select id="credit"></select>
+            </div>
+            
+            <div class="form-control">
+                <label for="grade">Điểm số</label>
+                <select id="grade"></select>
+            </div>
+            
+            <div class="btn-add-container">
+                <button class="btn-add" onclick="addSubject()">+ Thêm</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table id="subjectTable">
+            <thead>
+                <tr>
+                    <th>Môn học</th>
+                    <th style="width: 15%;">Tín chỉ</th>
+                    <th style="width: 20%;">Điểm</th>
+                    <th style="width: 10%;">Xóa</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="4" style="text-align:center; color:#999; padding: 20px;">Chưa có môn học nào</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="result-box">
+        <div class="result-item">
+            Tổng tín chỉ: <strong id="totalCredits">0</strong>
+        </div>
+        <div class="gpa-wrapper">
+            <span class="gpa-label">GPA Học Kỳ</span>
+            <span id="gpaScore" class="gpa-score">0.00</span>
+        </div>
+    </div>
+
+    <footer style="margin-top: 24px; text-align: center; font-size: 0.9rem; color: #777;">
+        &copy; 2025 tiendat-vlute
+    </footer>
+</div>
+
+<script>
+    let subjects = [];
+    const gradeMapping = {
+        'A': 4.0, 'B+': 3.5, 'B': 3.0, 'C+': 2.5,
+        'C': 2.0, 'D+': 1.5, 'D': 1.0, 'F': 0.0
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateSelectOptions();
+    });
+
+    function populateSelectOptions() {
+        const creditSelect = document.getElementById('credit');
+        const gradeSelect = document.getElementById('grade');
+
+        // Option Tín chỉ
+        for(let i = 1; i <= 10; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = i;
+            creditSelect.appendChild(option);
+        }
+
+        // Option Điểm
+        const gradeOptions = [
+            { key: 'A', label: 'A (4.0)' },
+            { key: 'B+', label: 'B+ (3.5)' },
+            { key: 'B', label: 'B (3.0)' },
+            { key: 'C+', label: 'C+ (2.5)' },
+            { key: 'C', label: 'C (2.0)' },
+            { key: 'D+', label: 'D+ (1.5)' },
+            { key: 'D', label: 'D (1.0)' },
+            { key: 'F', label: 'F (0.0)' }
+        ];
+        
+        gradeOptions.forEach(opt => {
+            const el = document.createElement('option');
+            el.value = opt.key;
+            el.textContent = opt.label;
+            gradeSelect.appendChild(el);
+        });
+
+        creditSelect.value = '3';
+        gradeSelect.value = 'A';
+    }
+
+    function addSubject() {
+        const nameInput = document.getElementById('subjectName');
+        const creditInput = document.getElementById('credit');
+        const gradeInput = document.getElementById('grade');
+
+        const name = nameInput.value.trim() || "Môn học " + (subjects.length + 1);
+        const credit = parseInt(creditInput.value);
+        const gradeKey = gradeInput.value; 
+        const gradeValue = gradeMapping[gradeKey];
+        const gradeLabel = gradeInput.options[gradeInput.selectedIndex].text.split(' - ')[0];
+
+        subjects.push({
+            id: Date.now(),
+            name, credit, gradeLabel, gradeValue
+        });
+
+        nameInput.value = '';
+        nameInput.focus();
+
+        renderTable();
+        calculateGPA();
+    }
+
+    function deleteSubject(id) {
+        // Xóa confirm để thao tác nhanh hơn, hoặc bỏ comment nếu muốn hỏi lại
+        // if(confirm('Xóa môn này?')) {
+            subjects = subjects.filter(sub => sub.id !== id);
+            renderTable();
+            calculateGPA();
+        // }
+    }
+
+    function renderTable() {
+        const tbody = document.querySelector('#subjectTable tbody');
+        tbody.innerHTML = ''; 
+
+        if(subjects.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; color:#999; padding: 20px;">Chưa có môn học nào</td></tr>';
+            return;
+        }
+
+        subjects.forEach(sub => {
+            const row = `
+                <tr>
+                    <td><strong>${sub.name}</strong></td>
+                    <td>${sub.credit}</td>
+                    <td><span style="color:var(--primary-color); font-weight:bold;">${sub.gradeLabel}</span></td>
+                    <td>
+                        <button class="btn-delete" onclick="deleteSubject(${sub.id})">✕</button>
+                    </td>
+                </tr>
+            `;
+            tbody.insertAdjacentHTML('beforeend', row);
+        });
+    }
+
+    function calculateGPA() {
+        const totalCreditsEl = document.getElementById('totalCredits');
+        const gpaScoreEl = document.getElementById('gpaScore');
+
+        if (subjects.length === 0) {
+            totalCreditsEl.innerText = 0;
+            gpaScoreEl.innerText = "0.00";
+            gpaScoreEl.style.color = "#333";
+            return;
+        }
+
+        let totalCredits = 0;
+        let totalWeightedScore = 0; 
+
+        subjects.forEach(sub => {
+            totalCredits += sub.credit;
+            totalWeightedScore += (sub.gradeValue * sub.credit);
+        });
+
+        const gpa = totalWeightedScore / totalCredits;
+
+        totalCreditsEl.innerText = totalCredits;
+        gpaScoreEl.innerText = gpa.toFixed(2);
+        
+        if(gpa >= 3.6) gpaScoreEl.style.color = "#2ed573";
+        else if(gpa >= 3.2) gpaScoreEl.style.color = "#1e90ff";
+        else if(gpa >= 2.5) gpaScoreEl.style.color = "#ffa502";
+        else gpaScoreEl.style.color = "#ff4757";
+    }
+</script>
+
+</body>
+</html>
