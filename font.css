@@ -18,7 +18,7 @@
 	font-style: normal;
 	font-weight: 500;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy Medium.woff2') format('woff2');
+	src: url('font/SVN-Gilroy Medium.woff2') format('woff2');
 }
 
 @font-face {
@@ -26,7 +26,7 @@
 	font-style: italic;
 	font-weight: 500;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy Medium Italic.woff2') format('woff2');
+	src: url('font/SVN-Gilroy Medium Italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -34,7 +34,7 @@
 	font-style: normal;
 	font-weight: 600;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy SemiBold.woff2') format('woff2');
+	src: url('font/SVN-Gilroy SemiBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -42,7 +42,7 @@
 	font-style: italic;
 	font-weight: 600;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy SemiBold Italic.woff2') format('woff2');
+	src: url('font/SVN-Gilroy SemiBold Italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -50,7 +50,7 @@
 	font-style: normal;
 	font-weight: 700;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy Bold.woff2') format('woff2');
+	src: url('font/SVN-Gilroy Bold.woff2') format('woff2');
 }
 
 @font-face {
@@ -58,7 +58,7 @@
 	font-style: italic;
 	font-weight: 700;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy Bold Italic.woff2') format('woff2');
+	src: url('font/SVN-Gilroy Bold Italic.woff2') format('woff2');
 }
 
 @font-face {
@@ -66,7 +66,7 @@
 	font-style: normal;
 	font-weight: 800;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy XBold.woff2') format('woff2');
+	src: url('font/SVN-Gilroy XBold.woff2') format('woff2');
 }
 
 @font-face {
@@ -74,7 +74,7 @@
 	font-style: italic;
 	font-weight: 800;
 	font-display: swap;
-	src: url('../font/SVN-Gilroy XBold Italic.woff2') format('woff2');
+	src: url('font/SVN-Gilroy XBold Italic.woff2') format('woff2');
 }
 /* Kết thúc nhóm @font-face */
 
